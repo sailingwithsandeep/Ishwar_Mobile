@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block content %}
+   <h1><span class="blue"></span>Add<span class="blue"></span> <span class="yellow">Customer</pan></h1>
+    <form action="" class="col-lg-6 offset-lg-3" method = "POST" autocomplete="off" enctype="multipart/form-data" >
+         {% csrf_token %}
+           <div class="row justify-content-center">
+           <div class="col-md-5" >
+                {{form.name|as_crispy_field}}
+            </div>
+             <div class="col-md-5">
+                {{form.mobile_number|as_crispy_field}}
+            </div>
+             <div class="col-md-5">
+                {{form.address|as_crispy_field}}
+            </div>
+             <div class="col-md-5" >
+                {{form.aadhar_card|as_crispy_field}}
+                {% comment %} <img  src="{{request.user.CustomerDetail.aadhar_card}}"  /> {% endcomment %}
+            </div>
+        </div>
+        <div class="col-lg-10 offset-lg-1">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+            </div>
+        </div>
+    </form>
+{% endblock content %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block order %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+		<form class="form-inline my-2 my-lg-0" method="GET">
+			{{order_list.form}}
+            <button class="btn btn-outline-light my-2 my-sm-0 m-3 " type="submit">Apply</button>
+        </form>
+	{% endblock order %}
+{% block content %}
+	
+	<h1><span class="blue"></span>Order<span class="blue"></span> <span class="yellow">List</pan></h1>
+		<table class="container">
+		<thead>
+			<tr>
+				<th ><h1>Customer Name</h1></th>
+				<th><h1>Model</h1></th>
+				<th><h1>Amount</h1></th>
+				<th><h1>DownPayment</h1></th>
+				<th><h1>Purchase Date</h1></th>
+				<th><h1>Installments</h1></th>
+				<th><h1>EMI Amount</h1></th>
+				<th><h1>EMI Date</h1></th>
+				<th><h1>Pending Installments</h1></th>
+				<th><h1>Status</h1></th>
+				<th><h1>Total</h1></th>
+				<th><h1>Pending Amount</h1></th>
+				<th><h1>Pay Date</h1></th>
+				
+				<th></th>
+				{% comment %} <th><h1>Due Amount</h1></th>             {% endcomment %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for order_list in order_list.qs %}
+			<tr>
+				<td>{{order_list.customer_name}}</td>
+				<td>{{order_list.mobile_Model}}</td>
+				<td>{{order_list.amount}}</td>
+				<td>{{order_list.downPayment}}</td>
+				<td>{{order_list.purchase_Date}}</td>
+				<td>{{order_list.installments}}</td>
+				<td>{{order_list.emi_amount}}</td>
+				<td>{{order_list.emi_Date}}</td>
+				<td>{{order_list.pending_installments}}</td>
+				<td>{{order_list.status}}</td>
+				<td>{{order_list.total}}</td>
+				<td id='amount' name="amount" >{{order_list.pending_amount}}</td>
+				<td>
+					<a href="{% url 'accounts:order_edit' order_list.id %}" class="btn btn-lg  text-secondary px-0"><i class="far fa-edit fa-lg"></i></a>
+				</td> 
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock content %}

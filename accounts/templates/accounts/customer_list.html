@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap %}
+
+{% block customer %}
+	
+		<form class="form-inline my-2 my-lg-0" method="GET">
+			 <input class="form-control mr-sm-2" name="q" value="{{ request.GET.q }}" type="text" placeholder="Search" aria-label="Search">
+            <button class="m-2 btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+	
+{% endblock customer %}
+
+{% block content %}
+<h1><span class="blue"></span>Cutomer's<span class="blue"></span> <span class="yellow">Data</pan></h1>
+    <table class="container">
+	<thead>
+		<tr>
+			<th><h1>Customer Name</h1></th>
+			<th><h1>Mobile Number</h1></th>
+			<th><h1>Orders</h1></th>
+			{% comment %} <th><h1>Total Amount</h1></th> {% endcomment %}
+			{% comment %} <th><h1>Total</h1></th> {% endcomment %}
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+        {% for customer in object_list  %}
+		<tr>
+			<td>{{customer.name}}</a></td>
+			<td>{{customer.mobile_number}}</td>
+			<td>{{customer.count}}</td>
+			{% comment %} <td>{{customer.total}}</td> {% endcomment %}
+			{% comment %} <td>{{customer.t}}</td> {% endcomment %}
+			<td>
+					{% comment %} <a href="{% url 'accounts:order_detail' object_list.id %}" class="btn btn-lg  text-secondary px-0"><i class="far fa-edit fa-lg"></i></a> {% endcomment %}
+			</td>
+
+
+		</tr>
+        {% endfor %}
+	</tbody>
+</table>
+{% endblock content %}

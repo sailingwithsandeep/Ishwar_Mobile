@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block content %}
+
+<h1><span class="blue"></span>Cutomer's Order<span class="blue"></span> <span class="yellow">Data</pan></h1>
+   
+   
+<div class="container mt-5">
+
+ </dl>
+     {% for orderdata in order_detail  %}
+        <dl class="row">
+       
+        <dt class="col-sm-3">Customer Name</dt>   
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4"><a href="{% url 'accounts:order_edit' orderdata.id %}">{{orderdata.customer_name}}</a></dt>
+            </dl>
+        </dd>
+        <dt class="col-sm-3">Model</dt>   
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.mobile_Model}}</dt>
+            </dl>
+        </dd>
+        <dt class="col-sm-3">Price</dt>   
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.amount}}</dt>
+            </dl>
+        </dd>
+        <dt class="col-sm-3">Down Payment</dt>   
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.downPayment}}</dt>
+            </dl>
+        </dd>
+        <dt class="col-sm-3">Purchase Data</dt>
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.purchase_Date}}</dt>
+            </dl>
+        </dd>
+        <dt class="col-sm-3">Installments</dt>
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.installments}}</dt>
+            </dl>
+        </dd>
+        <dt class="col-sm-3">Upcoming EMI</dt>   
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.emi_Date}}</dt>
+            </dl>
+        </dd>
+        <dt class="col-sm-3">Pending Installments</dt>   
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.pending_installments}}</dt>
+            </dl>
+        </dd>
+        <dt class="col-sm-3">EMI Amount</dt>   
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.emi_amount}}</dt>
+            </dl>
+        </dd>
+        <dt class="col-sm-3">Status</dt>   
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.status}}</dt>
+            </dl>
+        </dd>
+         <dt class="col-sm-3">Total</dt>   
+        <dd class="col-sm-9">
+            <dl class="row">
+            <dt class="col-sm-4">{{orderdata.totalamount}}</dt>
+            </dl>
+        </dd>
+        </dl>
+     {% endfor %} 
+</div>
+{% endblock content %}

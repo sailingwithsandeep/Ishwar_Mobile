@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block content %}
+{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+      {# Embed Bootstrap CSS #}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+{{ form.media }}  
+<script>
+    $("document").ready(function () {
+       
+        var p = $("#id_amount").val() - $("#id_downPayment").val();
+        var t = $("#id_installments").val();
+        
+       
+
+
+
+
+
+
+        //var monthlyInterestRatio = (r / 100) / 12;
+        //var monthlyInterest = (monthlyInterestRatio * p);
+        //var top = Math.pow((1 + monthlyInterestRatio), t);
+        //var bottom = top - 1;
+        //var sp = top / bottom; 
+        var emi = p / t
+        var result = emi.toFixed(2);
+        //alert(result)
+        $('#id_emi_amount').val(result);
+        $('#id_total').val(p);
+    
+
+        $('#id_amount').on('input', function () {
+            // get the current value of the input field.
+            var p = $("#id_amount").val() - $("#id_downPayment").val();
+            //var r = $('#id_interest').val();
+            var t = $("#id_installments").val();
+            //var monthlyInterestRatio = (r / 100) / 12;
+            //var monthlyInterest = (monthlyInterestRatio * p);
+            //var top = Math.pow((1 + monthlyInterestRatio), t);
+            //ar bottom = top - 1;
+            //var sp = top / bottom;
+            var emi = p / t
+            var result = emi.toFixed(2);
+            $('#id_emi_amount').val(result);
+            $('#id_total').val(p);
+            var total =  $("#id_pending_amount").val() - $("#id_emi_amount").val();
+            $('#id_pending_amount').val(total);
+
+        });
+        $('#id_downPayment').on('input', function () {
+            // get the current value of the input field.
+            var p = $("#id_amount").val() - $("#id_downPayment").val();
+            var t = $("#id_installments").val();
+           // var monthlyInterestRatio = (r / 100) / 12;
+            //var monthlyInterest = (monthlyInterestRatio * p);
+            //var top = Math.pow((1 + monthlyInterestRatio), t);
+            //var bottom = top - 1;
+            //var sp = top / bottom;
+            var emi = p / t
+            var result = emi.toFixed(2);
+             $('#id_emi_amount').val(result);
+            $('#id_total').val(p);
+        });
+        
+        $("#id_installments").on('input', function () {
+            var p = $("#id_amount").val() - $("#id_downPayment").val();
+            
+            var t = $("#id_installments").val();
+            //var monthlyInterestRatio = (r / 100) / 12;
+            //var monthlyInterest = (monthlyInterestRatio * p);
+            //var top = Math.pow((1 + monthlyInterestRatio), t);
+            //var bottom = top - 1;
+            //var sp = top / bottom;
+            var emi = p / t
+            var result = emi.toFixed(2);
+            $('#id_emi_amount').val(result);
+            $('#id_total').val(p);
+            $('#id_pending_amount').val(p);
+        });
+        
+        $('#id_installments').on('input',function onchange() {
+            var box1 = $('#id_installments');
+            var box2 = $('#id_pending_installments');
+            box2.val(box1.val());
+            
+        } );
+       
+        $('#collect').on('click',function (){
+            var total =  $("#id_pending_amount").val() - $("#id_emi_amount").val();
+            $('#id_pending_amount').val(total);
+            
+        });
+        $('#debit').on('click',function (){
+            var t =  $("#id_pending_amount").val() + $("#id_emi_amount").val();
+            $('#id_pending_amount').val(t);
+            
+        });
+       
+        
+
+
+
+    });
+
+
+
+
+</script>
+<h1><span class="blue"></span>Add<span class="blue"></span> <span class="yellow">Order</pan>
+</h1>
+<form action="" id="myForm" class="col-lg-6 offset-lg-3" method="POST" autocomplete="off">
+    {% csrf_token %}
+    <div class="row justify-content-center">
+        <div class="container">
+            {% crispy form %}
+           {% comment %} {% for field in form %}
+           <div class="form-group">
+                <div class="col-md-5">
+                    <span class="text-danger small">{{field.errors}}<span>
+                </div>
+                <div class="col-md-5">  
+                   <label for="" class="control-label col-md-5">{{field.label_tag}}</label>
+                   <div>{{field}}</div>
+                </div>
+           </div> {% endcomment %}
+            {% comment %} <div class="col-md-5">
+                <label for="emi" class="p-0 mb-3 mr-5">EMI*</label></br>
+                <input type="text" value="" class="p-0 mb-3 mr-5" readonly name="emi" id="emi">
+            </div>
+             <div class="col-md-5">
+                <label for="emi" class="p-0 mb-3 mr-5">Pending Amount</label></br>
+                <input type="text" value="" class="p-0 mb-3 mr-5" readonly name="pending" id="pending">
+            </div> {% endcomment %}
+{% comment %} 
+        {% endfor %} {% endcomment %}
+        <div class="col-lg-15 ">
+             
+        <div class="col-md-12">
+                <button class="btn btn-outline-dark btn-lg btn-block " type="button" id="collect" >EMI Collect</button>
+                {% comment %} <label for="debit">If there was mistake press Undo!</label>
+                <button class="btn btn-outline-dark" type="button" id="debit">Undo</button> {% endcomment %}
+        </div>
+        <div class="col-lg-15 ">
+            
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary btn-lg btn-block mt-5">Submit</button>
+        </div>
+    </div>
+
+    </div>
+    
+  </div>
+
+</form>
+
+
+{% endblock content %}
